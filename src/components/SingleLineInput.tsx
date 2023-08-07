@@ -8,6 +8,7 @@ export default function SingleLineInput({
   style,
   fontSize,
   onSubmitEditing,
+  keyboardType,
 }: {
   value: string;
   onChangeText: (text: string) => void;
@@ -15,6 +16,7 @@ export default function SingleLineInput({
   onSubmitEditing?: () => void;
   fontSize?: number;
   style?: StyleProp<TextInputProps>;
+  keyboardType?: TextInputProps['keyboardType'];
 }) {
   const [focused, setFocused] = useState(false);
   return (
@@ -30,9 +32,10 @@ export default function SingleLineInput({
       <TextInput
         autoCorrect={false}
         value={value}
+        keyboardType={keyboardType}
         onChangeText={onChangeText}
         placeholder={placeholder}
-        style={[style, {fontSize: fontSize ?? 20}]}
+        style={[style, {fontSize: fontSize ?? 20, padding: 0}]}
         onFocus={() => {
           setFocused(true);
         }}

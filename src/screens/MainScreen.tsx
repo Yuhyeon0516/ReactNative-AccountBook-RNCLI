@@ -20,6 +20,7 @@ export default function MainScreen() {
       type: '사용',
       price: 10000,
       comment: 'Test01',
+      date: now,
       createdAt: now,
       updatedAt: now,
       photoUrl: null,
@@ -29,6 +30,7 @@ export default function MainScreen() {
       type: '수입',
       price: 20000,
       comment: 'Test02',
+      date: now,
       createdAt: now,
       updatedAt: now,
       photoUrl:
