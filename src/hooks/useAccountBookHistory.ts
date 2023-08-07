@@ -57,6 +57,29 @@ export default function useAccountBookHistory() {
       },
       [openDB],
     ),
+    getList: useCallback<() => Promise<AccountBookHistory[]>>(async () => {
+      const db = await openDB();
+      const result = await db.executeSql('SELECT * FROM account_history');
+      const items: AccountBookHistory[] = [];
+      const size = result[0].rows.length;
+
+      for (let i = 0; i < size; i++) {
+        const item = result[0].rows.item(i);
+
+        items.push({
+          type: item.type,
+          comment: item.comment,
+          createdAt: parseInt(item.createdAt),
+          updatedAt: parseInt(item.updatedAt),
+          date: parseInt(item.date),
+          id: parseInt(item.id),
+          photoUrl: item.photoUrl,
+          price: parseInt(item.price),
+        });
+      }
+
+      return items.sort((a, b) => a.date - b.date);
+    }, [openDB]),
 
     updateItem: useCallback<
       (item: AccountBookHistory) => Promise<AccountBookHistory>
