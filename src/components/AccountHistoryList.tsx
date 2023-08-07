@@ -6,6 +6,7 @@ import {Icon} from './Icons';
 import {Typography} from './Typography';
 import {Spacer} from './Spacer';
 import {RemoteImage} from './RemoteImage';
+import {convertToDateString} from '../utils/DataUtil';
 
 export default function AccountHistoryList({
   item,
@@ -31,7 +32,9 @@ export default function AccountHistoryList({
         <View style={{flex: 1, marginLeft: 12}}>
           <Typography fontSize={16}>{item.comment}</Typography>
           <Spacer space={4} />
-          <Typography fontSize={12}>{item.createdAt.toString()}</Typography>
+          <Typography fontSize={12}>
+            {convertToDateString(item.createdAt)}
+          </Typography>
         </View>
         {item.photoUrl !== null ? (
           <RemoteImage
