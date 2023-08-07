@@ -1,5 +1,5 @@
 import {FlatList, View} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Header} from '../components/Header/Header';
 import {AccountBookHistory} from '../type/AccountBookHistory';
 import AccountHistoryList from '../components/AccountHistoryList';
@@ -7,6 +7,7 @@ import {useRootNavigation} from '../navigations/RootNavigation';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {CustomButton} from '../components/CustomButton';
 import {Icon} from '../components/Icons';
+import {openDatabase, enablePromise} from 'react-native-sqlite-storage';
 
 const now = new Date().getTime();
 
@@ -20,7 +21,7 @@ export default function MainScreen() {
       price: 10000,
       comment: 'Test01',
       createdAt: now,
-      updateAt: now,
+      updatedAt: now,
       photoUrl: null,
     },
     {
@@ -29,11 +30,27 @@ export default function MainScreen() {
       price: 20000,
       comment: 'Test02',
       createdAt: now,
-      updateAt: now,
+      updatedAt: now,
       photoUrl:
         'https://docs.expo.dev/static/images/tutorial/background-image.png',
     },
   ]);
+
+  useEffect(() => {
+    openDatabase(
+      {
+        name: 'account_history.db',
+        createFromLocation: '~www/account_history.db',
+        location: 'default',
+      },
+      () => {
+        console.log('OPEN DB');
+      },
+      () => {
+        console.log('FAILED');
+      },
+    );
+  }, []);
 
   return (
     <View style={{flex: 1}}>

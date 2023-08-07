@@ -4,6 +4,6 @@ export type AccountBookHistory = {
   price: number;
   comment: string;
   createdAt: number;
-  updateAt: number;
+  updatedAt: number;
   photoUrl: string | null;
 };
