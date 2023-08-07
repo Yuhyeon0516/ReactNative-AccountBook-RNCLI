@@ -31,11 +31,11 @@ export default function AccountHistoryList({
         />
         <View style={{flex: 1, marginLeft: 12}}>
           <Typography fontSize={16} numOfLines={1}>
-            {item.comment} | {item.price.toString()}
+            {item.comment} | {item.price.toString() + '만원'}
           </Typography>
           <Spacer space={4} />
           <Typography fontSize={12}>
-            {convertToDateString(item.createdAt)}
+            {convertToDateString(item.date)}
           </Typography>
         </View>
         {item.photoUrl !== null ? (

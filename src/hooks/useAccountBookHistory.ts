@@ -78,7 +78,7 @@ export default function useAccountBookHistory() {
         });
       }
 
-      return items.sort((a, b) => a.date - b.date);
+      return items.sort((a, b) => b.date - a.date);
     }, [openDB]),
 
     updateItem: useCallback<
