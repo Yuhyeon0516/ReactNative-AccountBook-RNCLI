@@ -15,7 +15,10 @@ import CameraScreen from '../screens/CameraScreen';
 type ScreenParams = {
   Add: undefined;
   Main: undefined;
-  Update: {item: AccountBookHistory};
+  Update: {
+    item: AccountBookHistory;
+    onChangeData: (nextItem: AccountBookHistory) => void;
+  };
   Detail: {item: AccountBookHistory};
   Montly: undefined;
   Calendar: {onSelectDay: (date: number) => void};

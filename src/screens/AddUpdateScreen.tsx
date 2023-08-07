@@ -16,7 +16,7 @@ import {RemoteImage} from '../components/RemoteImage';
 export default function AddUpdateScreen() {
   const navigation = useRootNavigation<'Add' | 'Update'>();
   const route = useRootRoute<'Add' | 'Update'>();
-  const {insertItem} = useAccountBookHistory();
+  const {insertItem, updateItem} = useAccountBookHistory();
   const [item, setItem] = useState<AccountBookHistory>(
     route.params?.item ?? {
       type: '사용',
@@ -91,8 +91,13 @@ export default function AddUpdateScreen() {
   const onPressSave = useCallback(() => {
     if (route.name === 'Add') {
       insertItem(item).then(() => navigation.goBack());
+    } else {
+      updateItem(item).then(updatedItem => {
+        route.params?.onChangeData(updatedItem);
+        navigation.goBack();
+      });
     }
-  }, [insertItem, item, navigation, route.name]);
+  }, [insertItem, item, navigation, route.name, route.params, updateItem]);
 
   return (
     <View style={{flex: 1}}>

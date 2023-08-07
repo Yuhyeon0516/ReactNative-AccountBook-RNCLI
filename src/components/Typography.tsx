@@ -9,7 +9,7 @@ export function Typography({
 }: {
   color?: string;
   fontSize?: number;
-  children?: React.ReactElement | string | React.ReactElement[];
+  children?: React.ReactElement | string | string[] | React.ReactElement[];
   numOfLines?: number;
 }) {
   return (

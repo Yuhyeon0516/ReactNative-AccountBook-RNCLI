@@ -28,8 +28,6 @@ export default function CameraScreen() {
         album: 'AccountBook',
       });
 
-      console.log(saveResult);
-
       route.params.onTakePhoto(saveResult);
 
       navigation.goBack();

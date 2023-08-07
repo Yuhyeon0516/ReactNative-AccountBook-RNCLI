@@ -30,7 +30,9 @@ export default function AccountHistoryList({
           color={item.type === '사용' ? 'red' : 'blue'}
         />
         <View style={{flex: 1, marginLeft: 12}}>
-          <Typography fontSize={16}>{item.comment}</Typography>
+          <Typography fontSize={16} numOfLines={1}>
+            {item.comment} | {item.price.toString()}
+          </Typography>
           <Spacer space={4} />
           <Typography fontSize={12}>
             {convertToDateString(item.createdAt)}
