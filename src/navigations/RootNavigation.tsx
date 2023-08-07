@@ -10,6 +10,7 @@ import DetailScreen from '../screens/DetailScreen';
 import {AccountBookHistory} from '../type/AccountBookHistory';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import CalendarScreen from '../screens/CalendarScreen';
+import CameraScreen from '../screens/CameraScreen';
 
 type ScreenParams = {
   Add: undefined;
@@ -18,6 +19,7 @@ type ScreenParams = {
   Detail: {item: AccountBookHistory};
   Montly: undefined;
   Calendar: {onSelectDay: (date: number) => void};
+  Camera: {onTakePhoto: (url: string) => void};
 };
 
 const Stack = createNativeStackNavigator<ScreenParams>();
@@ -32,6 +34,7 @@ export function RootNavigation() {
       <Stack.Screen name="Montly" component={MonthlyScreen} />
       <Stack.Screen name="Detail" component={DetailScreen} />
       <Stack.Screen name="Calendar" component={CalendarScreen} />
+      <Stack.Screen name="Camera" component={CameraScreen} />
     </Stack.Navigator>
   );
 }

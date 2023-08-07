@@ -11,6 +11,7 @@ import {Icon} from '../components/Icons';
 import {convertToDateString} from '../utils/DataUtil';
 import MultiLineInput from '../components/MultiLineInput';
 import useAccountBookHistory from '../hooks/useAccountBookHistory';
+import {RemoteImage} from '../components/RemoteImage';
 
 export default function AddUpdateScreen() {
   const navigation = useRootNavigation<'Add' | 'Update'>();
@@ -61,7 +62,18 @@ export default function AddUpdateScreen() {
     });
   }, []);
 
-  const onPressPhoto = useCallback(() => {}, []);
+  const onPressPhoto = useCallback(() => {
+    navigation.push('Camera', {
+      onTakePhoto: url => {
+        setItem(prev => {
+          return {
+            ...prev,
+            photoUrl: url,
+          };
+        });
+      },
+    });
+  }, [navigation]);
 
   const onPressCalandar = useCallback(() => {
     navigation.push('Calendar', {
@@ -177,17 +189,26 @@ export default function AddUpdateScreen() {
 
           <View style={{marginLeft: 24}}>
             <CustomButton onPress={onPressPhoto}>
-              <View
-                style={{
-                  width: 100,
-                  height: 100,
-                  borderRadius: 12,
-                  backgroundColor: 'lightgray',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <Icon iconName="add" size={24} color="gray" />
-              </View>
+              {item.photoUrl ? (
+                <RemoteImage
+                  url={item.photoUrl}
+                  width={100}
+                  height={100}
+                  style={{borderRadius: 12}}
+                />
+              ) : (
+                <View
+                  style={{
+                    width: 100,
+                    height: 100,
+                    borderRadius: 12,
+                    backgroundColor: 'lightgray',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Icon iconName="add" size={24} color="gray" />
+                </View>
+              )}
             </CustomButton>
           </View>
         </View>
