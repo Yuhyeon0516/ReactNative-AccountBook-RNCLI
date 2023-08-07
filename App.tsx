@@ -3,7 +3,7 @@ import React from 'react';
 import {StatusBar, useColorScheme} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import RootNavigation from './src/navigations/RootNavigation';
+import {RootNavigation} from './src/navigations/RootNavigation';
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
