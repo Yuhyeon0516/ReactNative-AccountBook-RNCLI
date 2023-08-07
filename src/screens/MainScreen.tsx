@@ -1,5 +1,5 @@
 import {FlatList, View} from 'react-native';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {Header} from '../components/Header/Header';
 import {AccountBookHistory} from '../type/AccountBookHistory';
 import AccountHistoryList from '../components/AccountHistoryList';
@@ -7,35 +7,26 @@ import {useRootNavigation} from '../navigations/RootNavigation';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {CustomButton} from '../components/CustomButton';
 import {Icon} from '../components/Icons';
-
-const now = new Date().getTime();
+import useAccountBookHistory from '../hooks/useAccountBookHistory';
+import {useFocusEffect} from '@react-navigation/native';
 
 export default function MainScreen() {
   const navigation = useRootNavigation();
   const safeAreaInset = useSafeAreaInsets();
-  const [list, setList] = useState<AccountBookHistory[]>([
-    {
-      id: 0,
-      type: '사용',
-      price: 10000,
-      comment: 'Test01',
-      date: now,
-      createdAt: now,
-      updatedAt: now,
-      photoUrl: null,
-    },
-    {
-      id: 1,
-      type: '수입',
-      price: 20000,
-      comment: 'Test02',
-      date: now,
-      createdAt: now,
-      updatedAt: now,
-      photoUrl:
-        'https://docs.expo.dev/static/images/tutorial/background-image.png',
-    },
-  ]);
+  const {getList} = useAccountBookHistory();
+  const [list, setList] = useState<AccountBookHistory[]>([]);
+
+  const fetchList = useCallback(async () => {
+    const data = await getList();
+
+    setList(data);
+  }, [getList]);
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchList();
+    }, [fetchList]),
+  );
 
   return (
     <View style={{flex: 1}}>
