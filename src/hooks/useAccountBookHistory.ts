@@ -83,6 +83,37 @@ export default function useAccountBookHistory() {
 
     updateItem: useCallback<
       (item: AccountBookHistory) => Promise<AccountBookHistory>
-    >(item => {}, []),
+    >(
+      async item => {
+        if (typeof item.id === 'undefined') {
+          throw new Error('Unexpected id value');
+        }
+
+        const db = await openDB();
+
+        const now = new Date().getTime();
+
+        const result = await db.executeSql(
+          `
+            UPDATE account_history
+            SET price=${item.price},
+                comment="${item.comment}",
+                date=${item.date},
+                photoUrl=${
+                  item.photoUrl !== null ? `"${item.photoUrl}"` : null
+                },
+                updatedAt=${now},
+                date=${item.date}
+            WHERE id=${item.id}
+        `,
+        );
+
+        return {
+          ...item,
+          id: result[0].insertId,
+        };
+      },
+      [openDB],
+    ),
   };
 }
