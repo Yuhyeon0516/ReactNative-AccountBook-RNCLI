@@ -1,5 +1,5 @@
 import React from 'react';
-import {ImageProps, Image as RNImage, StyleProp} from 'react-native';
+import {ImageStyle, Image as RNImage, StyleProp} from 'react-native';
 
 export function RemoteImage({
   url,
@@ -8,7 +8,7 @@ export function RemoteImage({
   height,
 }: {
   url: string;
-  style?: StyleProp<ImageProps>;
+  style?: StyleProp<ImageStyle>;
   width: number;
   height: number;
 }) {
