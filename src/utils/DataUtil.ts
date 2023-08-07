@@ -10,7 +10,7 @@ export function convertToDateString(time: number): string {
 
   return `${date.getFullYear()}-${addZeroIfOneCharecter(
     date.getMonth() + 1,
-  )}-${addZeroIfOneCharecter(
-    date.getDate(),
-  )} ${date.getHours()}:${date.getMinutes()}`;
+  )}-${addZeroIfOneCharecter(date.getDate())} ${addZeroIfOneCharecter(
+    date.getHours(),
+  )}:${addZeroIfOneCharecter(date.getMinutes())}`;
 }
