@@ -15,7 +15,7 @@ export function Typography({
   return (
     <RNText
       style={{
-        color: color,
+        color: color || 'black',
         fontSize: fontSize,
       }}
       numberOfLines={numOfLines}>
