@@ -10,10 +10,12 @@ import SingleLineInput from '../components/SingleLineInput';
 import {Icon} from '../components/Icons';
 import {convertToDateString} from '../utils/DataUtil';
 import MultiLineInput from '../components/MultiLineInput';
+import useAccountBookHistory from '../hooks/useAccountBookHistory';
 
 export default function AddUpdateScreen() {
   const navigation = useRootNavigation<'Add' | 'Update'>();
   const route = useRootRoute<'Add' | 'Update'>();
+  const {insertItem} = useAccountBookHistory();
   const [item, setItem] = useState<AccountBookHistory>(
     route.params?.item ?? {
       type: '사용',
@@ -61,9 +63,24 @@ export default function AddUpdateScreen() {
 
   const onPressPhoto = useCallback(() => {}, []);
 
-  const onPressCalandar = useCallback(() => {}, []);
+  const onPressCalandar = useCallback(() => {
+    navigation.push('Calendar', {
+      onSelectDay: date => {
+        setItem(prev => {
+          return {
+            ...prev,
+            date: date,
+          };
+        });
+      },
+    });
+  }, [navigation]);
 
-  const onPressSave = useCallback(() => {}, []);
+  const onPressSave = useCallback(() => {
+    if (route.name === 'Add') {
+      insertItem(item).then(() => navigation.goBack());
+    }
+  }, [insertItem, item, navigation, route.name]);
 
   return (
     <View style={{flex: 1}}>
